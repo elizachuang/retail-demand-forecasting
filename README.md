@@ -2,7 +2,9 @@
 
 
 <img src="images/cover.png" width="100%" alt="Banner with a rooster weather vane and the title 5 Forecasting Methods Compared on an orange background" />
-A comparison of five simple forecasting methods on Eurostat monthly retail sales for five countries. ** Spoilers: ** Seasonal naive (repeat the same month of last year) wins almost every test.
+A comparison of five simple forecasting methods on Eurostat monthly retail sales for five countries. 
+
+**Spoilers:** A very simple method won. Seasonal naive, which copies the same month from last year, had the lowest error in 19 of 20 tests. For example, it forecasts December 2025 sales to equal December 2024 sales. It beat a moving average, a 12-month average and a straight-line trend. The simplest method of all, repeating last month, came last every time.
 
 ## Why this project
 
