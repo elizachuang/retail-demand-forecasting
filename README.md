@@ -106,3 +106,108 @@ Error = forecast − actual. A positive error means the forecast was too high.
 
 **Why WAPE is the main score.** MAPE divides each error by that month's own actual, so errors in small months such as February count for more. WAPE divides the total error by total sales, so every unit of sales counts the same.
 
+## Results
+
+### Netherlands, 2025
+
+| Method | WAPE | MAPE | Bias | Improvement over naive |
+|---|---|---|---|---|
+| naive | 8.56% | 8.88% | +8.23% | 0% |
+| seasonal_naive | 1.52% | 1.54% | −1.08% | 82.2% |
+| moving_average (3 months) | 5.39% | 5.64% | +4.24% | 37.0% |
+| 12_month_average | 4.43% | 4.45% | −1.08% | 48.3% |
+| linear_trend | 4.90% | 5.12% | +3.64% | 42.8% |
+
+TODO: add image `images/forecasts-vs-actual-nl-2025.png` (the chart in the `forecasts` tab).
+
+TODO: add image `images/wape-by-method.png` (the chart in the `accuracy` tab).
+
+What the table shows:
+
+- **Seasonal naive wins clearly.** Its WAPE is 1.52%, and it removes 82.2% of the naive error.
+- **Naive is too high by 8.23%.** It repeats December 2024 (109.5) for every month, and December is the peak of the year.
+- **The 3-month average is also too high (+4.24%).** It averages October to December, which are strong months.
+- **Seasonal naive and the 12-month average have the same bias (−1.08%).** This is true by construction: both forecasts add up to the same 2024 total, but the 12-month average spreads it evenly over the year.
+- **But their WAPE is very different (1.52% against 4.43%).** The flat 12-month average misses the seasonal shape, so its errors cancel out in the bias but not in the WAPE.
+- This is why you need **both accuracy and bias**. Bias alone would call these two methods equal.
+
+### Other countries, 2025
+
+| Country | Winner | WAPE | Bias | Naive WAPE | Improvement over naive |
+|---|---|---|---|---|---|
+| DE | seasonal_naive | 3.23% | −2.79% | 8.71% | 62.9% |
+| FR | seasonal_naive | 2.73% | −2.73% | 18.57% | 85.3% |
+| ES | seasonal_naive | 3.92% | −3.92% | 14.07% | 72.1% |
+| IT | seasonal_naive | 0.97% | +0.50% | 21.35% | 95.4% |
+
+- **Seasonal naive wins in every country in 2025.**
+- Its bias is negative in DE, FR and ES, so it forecast too low there. In Spain, 2025 grew faster than 2024.
+- Naive was too high in every country: by 7.80% (DE), 17.60% (FR), 13.18% (ES) and 21.26% (IT).
+
+### Does the winner hold?
+
+Winner (lowest WAPE) by country and test year, from the `country_summary` tab:
+
+| Country | 2022 | 2023 | 2024 | 2025 |
+|---|---|---|---|---|
+| NL | seasonal_naive | seasonal_naive | seasonal_naive | seasonal_naive |
+| DE | 12_month_average | seasonal_naive | seasonal_naive | seasonal_naive |
+| FR | seasonal_naive | seasonal_naive | seasonal_naive | seasonal_naive |
+| ES | seasonal_naive | seasonal_naive | seasonal_naive | seasonal_naive |
+| IT | seasonal_naive | seasonal_naive | seasonal_naive | seasonal_naive |
+
+WAPE of seasonal naive:
+
+| Country | 2022 | 2023 | 2024 | 2025 |
+|---|---|---|---|---|
+| NL | 3.87% | 2.23% | 2.31% | 1.52% |
+| DE | 4.84% | 3.92% | 2.63% | 3.23% |
+| FR | 3.47% | 2.23% | 2.30% | 2.73% |
+| ES | 2.62% | 2.32% | 2.58% | 3.92% |
+| IT | 3.31% | 2.70% | 0.99% | 0.97% |
+
+- **Seasonal naive wins 19 of 20 tests.** The only loss is Germany 2022, where the 12-month average won (4.38% against 4.84%).
+- **Its WAPE stays between 0.97% and 4.84%.**
+- **It removes 60% to 95% of the naive error** across all tests, and 60% to 83% for the Netherlands alone.
+- **Its bias stays between −3.92% and +3.83%**, and between −1.24% and +1.69% for the Netherlands alone.
+- **Naive is the worst method in all 20 tests.** Naive and the 3-month average are too high in all 20 tests, because they repeat the December peak.
+
+### The 2020 check
+
+2020 was the COVID year, so I tested whether it distorts the linear trend. The `linear_trend_no2020` version fits the same straight line but leaves all 2020 months out of the training data.
+
+Change in linear trend WAPE when 2020 is left out (percentage points; minus means better):
+
+| Country | 2022 | 2023 | 2024 | 2025 |
+|---|---|---|---|---|
+| NL | +0.02 | −0.11 | −0.17 | −0.10 |
+| DE | −0.46 | −0.81 | −0.64 | −0.14 |
+| FR | +0.57 | +1.02 | +0.52 | +0.22 |
+| ES | +0.93 | +0.03 | −0.18 | −0.28 |
+| IT | −0.32 | +1.34 | +0.57 | +0.28 |
+
+- **The largest change is 1.34 points** (Italy 2023).
+- **Germany gets slightly better in every year**, France gets slightly worse in every year, and Spain and Italy are mixed.
+- **The winner never changes.** In the backtest, `linear_trend_no2020` competes as a sixth method, and it never wins.
+- **The other methods are not affected**, because they only use the last 12 months before each test year. The earliest test year is 2022, so 2020 is never in those 12 months.
+
+### Patterns I saw
+
+TODO: add image `images/yearly-pattern-nl.png` (the chart in the `Year-over-Year grid` tab).
+
+From my notes in the `note` tab:
+
+- **December is the highest month in all five countries.** February is the lowest in four of them. France is the exception: July and February are its low months.
+- **NL:** a steady trend up. 2020 does not really break the pattern. December is still highest, February lowest.
+- **DE:** next highest is November, next lowest January. Trend up from 2015 to 2021, a dip in 2022 to 2023, then back up in 2024 to 2025. 2020 did not break the pattern: only April dropped (−4.8% against April 2019).
+- **FR:** next highest is August. A steady trend up; 2025 is the highest year. 2020 broke the pattern: March −15%, April −30%, November −14% against 2019 (lockdowns).
+- **ES:** next highest is July. Trend up, strongest since 2022. 2020 broke the pattern: April −30%, May −19% against 2019. The whole year was −6%.
+- **IT:** next highest is July. No clear trend: flat around 100 until 2022, slightly down since. 2020 broke the pattern: March −23%, April −33%, May −14% against 2019. The whole year was −7%.
+
+## What this means for a planner
+
+- **Start with seasonal naive as the baseline.** Any new method should have to beat it before you use it.
+- **Naive is a poor baseline for seasonal data.** Beating it proves very little, because it is so easy to beat.
+- **Check bias as well as accuracy.** Two methods can have the same bias and very different accuracy.
+- **Track forecast errors all the time.** The winner changed once (Germany 2022), and results can change when the data or the market changes.
+
