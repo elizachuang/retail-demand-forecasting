@@ -118,9 +118,13 @@ Error = forecast − actual. A positive error means the forecast was too high.
 | 12_month_average | 4.43% | 4.45% | −1.08% | 48.3% |
 | linear_trend | 4.90% | 5.12% | +3.64% | 42.8% |
 
-TODO: add image `images/forecasts-vs-actual-nl-2025.png` (the chart in the `forecasts` tab).
+![Netherlands 2025: the five forecasts against actual sales, by month](images/forecasts-vs-actual-nl-2025.png)
 
-TODO: add image `images/wape-by-method.png` (the chart in the `accuracy` tab).
+Netherlands 2025: the five forecasts against the actual index (black line).
+
+![Netherlands 2025: WAPE, MAPE, bias and improvement over naive for each method](images/wape-by-method.png)
+
+Netherlands 2025: the four scores for each method.
 
 What the table shows:
 
@@ -259,10 +263,10 @@ retail-demand-forecasting/
 ├── excel/
 │   └── Testing_forecast_method.xlsx
 └── images/
+    ├── forecasts-vs-actual-nl-2025.png
+    ├── wape-by-method.png
     └── yearly-pattern-nl.png
 ```
-
-TODO: add the other two chart images named above to `images/`.
 
 ## Data source
 
