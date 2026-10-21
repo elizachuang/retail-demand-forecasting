@@ -2,6 +2,8 @@
 
 A comparison of five simple forecasting methods on Eurostat monthly retail sales for five countries. **Seasonal naive** (repeat the same month of last year) wins almost every test.
 
+<img src="images/cover.png" width="100%" alt="Banner with a rooster weather vane and the title 5 Forecasting Methods Compared on an orange background" />
+
 ## Why this project
 
 - A forecast is only useful if it beats a **simple baseline**. If it does not beat the baseline, the extra work adds nothing.
@@ -263,6 +265,7 @@ retail-demand-forecasting/
 ├── excel/
 │   └── Testing_forecast_method.xlsx
 └── images/
+    ├── cover.png
     ├── forecasts-vs-actual-nl-2025.png
     ├── wape-by-method.png
     └── yearly-pattern-nl.png
@@ -274,4 +277,10 @@ Eurostat, dataset `sts_trtu_m`, downloaded on 2026-10-21.
 
 ## Author
 
-Eliza C. Huang
+**Eliza C. Huang**
+
+Data Analyst with a background in UX and data-driven analysis. Interested in high-impact roles across Public Policy, NGOs, Human Rights, as well as industries such as Technology, Supply Chain & Logistics, Healthcare, Sustainability, and FinTech.
+
+- 📊 Tableau Public: [public.tableau.com/app/profile/eliza.c.huang](https://public.tableau.com/app/profile/eliza.c.huang/vizzes)
+- 💼 LinkedIn: [linkedin.com/in/chuyunh](https://www.linkedin.com/in/chuyunh/)
+- 📸 Instagram: [DataDrawers](https://www.instagram.com/datadrawers/)
