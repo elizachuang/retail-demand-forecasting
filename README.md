@@ -6,8 +6,11 @@ A comparison of five simple forecasting methods on Eurostat monthly retail sales
 
 ## Why this project
 
-- A forecast is only useful if it beats a **simple baseline**. If it does not beat the baseline, the extra work adds nothing.
-- I tested which simple method beats the baseline, and by how much, on five countries and four test years.
+- **Where it started.** A demand planner job ad caught my interest. I had no forecasting experience, so I started this project to learn how planners choose and check a forecast method.
+- **The problem.** A forecast only adds value if it beats a **simple baseline**. I wanted to measure which method does that, and by how much, with data instead of gut feeling.
+- **Why European data.** I live in Europe and know this market best. So I started with Eurostat's public retail sales data for five countries.
+- **What surprised me.** The naive method did far worse than I expected. It was the least accurate method in every test, because it carries the December peak into the whole year.
+- **What I took from it.** I enjoyed using numbers to judge risk: how far off a forecast can be, and in which direction. This project is how I learn a new field: start a project, learn the methods, and test the answer with data.
 - Skills shown: forecasting, forecast accuracy measures (**WAPE**, **MAPE**, **bias**), Excel and Google Sheets formulas, and attention to detail.
 
 ## The question
