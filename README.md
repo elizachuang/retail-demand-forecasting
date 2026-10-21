@@ -224,11 +224,6 @@ From my notes in the `note` tab:
 - **Only four test years.** One good year can be luck.
 - **2025 numbers may change.** For some countries they are provisional, and Eurostat may revise them.
 
-## Next steps
-
-- Test exponential smoothing: `FORECAST.ETS` or Holt-Winters, in Excel or Python.
-- Do the food and non-food split, using the same tests.
-
 ## How to reproduce
 
 1. **Download the data.** Open the Eurostat dataset `sts_trtu_m`. Set indicator `VOL_SLS`, unit `I21`, seasonal adjustment `NSA`, monthly, January 2015 to August 2026. My download also had other countries and activity codes, and step 3 keeps only `G47`.
