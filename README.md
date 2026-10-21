@@ -193,7 +193,9 @@ Change in linear trend WAPE when 2020 is left out (percentage points; minus mean
 
 ### Patterns I saw
 
-TODO: add image `images/yearly-pattern-nl.png` (the chart in the `Year-over-Year grid` tab).
+![Netherlands retail sales index by month, one line per year from 2015 to 2026](images/yearly-pattern-nl.png)
+
+Netherlands, index by month (2021 = 100). Each line is one year.
 
 From my notes in the `note` tab:
 
@@ -259,11 +261,13 @@ From my notes in the `note` tab:
 ```
 retail-demand-forecasting/
 ├── README.md
-└── excel/
-    └── Testing_forecast_method.xlsx
+├── excel/
+│   └── Testing_forecast_method.xlsx
+└── images/
+    └── yearly-pattern-nl.png
 ```
 
-TODO: add an `images/` folder with the three chart images named above.
+TODO: add the other two chart images named above to `images/`.
 
 ## Data source
 
