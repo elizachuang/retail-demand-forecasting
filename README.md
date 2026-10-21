@@ -211,3 +211,64 @@ From my notes in the `note` tab:
 - **Check bias as well as accuracy.** Two methods can have the same bias and very different accuracy.
 - **Track forecast errors all the time.** The winner changed once (Germany 2022), and results can change when the data or the market changes.
 
+## Limits
+
+- **National sales index, not product demand.** The data is one index per country, not sales of single products. It shows I can test a forecast method, but it does not show product range planning.
+- **One data source and one sector.** Only Eurostat retail trade data was used, so the result says what fits this data, not that seasonal naive works everywhere.
+- **Simple methods only.** The five methods are basic rules, not advanced models.
+- **Exponential smoothing was not tested.** It was in the original plan (Excel `FORECAST.ETS`), but I built the project in Google Sheets, which does not have this function. I used a straight-line trend instead.
+- **The food and non-food split was not done.** The download contains food and non-food series, but I did not analyse them.
+- **Some recent data is provisional.** See [Data quality flags](#data-quality-flags). Germany and France are affected most.
+- **Only four test years.** One good year can be luck.
+- **2025 numbers may change.** For some countries they are provisional, and Eurostat may revise them.
+
+## Next steps
+
+- Test exponential smoothing: `FORECAST.ETS` or Holt-Winters, in Excel or Python.
+- Do the food and non-food split, using the same tests.
+
+## How to reproduce
+
+1. **Download the data.** Open the Eurostat dataset `sts_trtu_m`. Set indicator `VOL_SLS`, unit `I21`, seasonal adjustment `NSA`, monthly, January 2015 to August 2026. My download also had other countries and activity codes, and step 3 keeps only `G47`.
+2. **Paste it into `raw`.** Copy the rows for each country into its own tab (`raw_NL`, `raw_DE` and so on).
+3. **Build `clean_XX`.** Keep only activity `G47`. One row per month: the month and the index value, sorted by date.
+4. **Build `forecasts_XX`.** For each of the 12 test months, add the five forecasts, the actual value and the error (forecast − actual).
+5. **Build `accuracy_XX`.** Calculate WAPE, MAPE, bias and improvement over naive for each method.
+6. **Build `backtest_XX`.** Repeat steps 4 and 5 for each test year (2022 to 2025). Add `linear_trend_no2020`.
+7. **Repeat for each country.** Then collect the results in `country_summary`.
+
+**Note on formulas.** I built the workbook in Google Sheets and saved it as `.xlsx`. Some formulas use Google Sheets functions (for example `FILTER` inside `FORECAST.LINEAR`), so Excel shows the saved values for these cells but may not recalculate them.
+
+### Workbook tabs
+
+| Tab | What it holds |
+|---|---|
+| `note` | My notes: data source, download date, goals, written results, flags, country notes |
+| `raw` | The full Eurostat download |
+| `raw_NL`, `raw_DE`, `raw_FR`, `raw_ES`, `raw_IT` | The rows of `raw` for one country |
+| `clean_NL` … `clean_IT` | Month and index, one row per month, activity `G47` only |
+| `Year-over-Year grid` (and `_DE`, `_FR`, `_ES`, `_IT`) | The pattern by month and by year, with a chart |
+| `Charts` | Charts of the pattern by month and by year |
+| ` forecasts` (Netherlands, note the leading space) and `forecasts_DE` … `forecasts_IT` | 2025 forecasts, actuals and errors |
+| `accuracy (result page)` (Netherlands) and `accuracy_DE` … `accuracy_IT` | WAPE, MAPE, bias and improvement over naive for 2025 |
+| `backtest` (Netherlands) and `backtest_DE` … `backtest_IT` | The same test for 2022 to 2025, plus `linear_trend_no2020` |
+| `country_summary` | Winner, seasonal naive WAPE, naive WAPE, improvement and bias by country and test year, plus the 2020 check |
+
+## Repository structure
+
+```
+retail-demand-forecasting/
+├── README.md
+└── excel/
+    └── Testing_forecast_method.xlsx
+```
+
+TODO: add an `images/` folder with the three chart images named above.
+
+## Data source
+
+Eurostat, dataset `sts_trtu_m`, downloaded on 2026-10-21.
+
+## Author
+
+Eliza C. Huang
